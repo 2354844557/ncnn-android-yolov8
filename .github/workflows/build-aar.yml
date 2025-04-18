@@ -1,0 +1,35 @@
+name: Build Yolov8NCNN AAR
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Grant Permission
+        run: chmod +x ./gradlew
+
+      - name: Build AAR
+        run: |
+          ./gradlew clean
+          ./gradlew assembleRelease
+
+      - name: Upload AAR
+        uses: actions/upload-artifact@v3
+        with:
+          name: yolov8ncnn-aar
+          path: app/build/outputs/aar/*.aar
