@@ -20,11 +20,18 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v2
 
-      - name: Install newer CMake
-        run: sdkmanager "cmake;3.22.1"
+      - name: Install SDK Components
+        run: |
+          sdkmanager "cmake;3.22.1"
+          sdkmanager "ndk;25.2.9519653"
+          sdkmanager "platforms;android-33"
+          sdkmanager "build-tools;33.0.2"
 
-      - name: Write local.properties
-        run: echo "cmake.dir=$ANDROID_HOME/cmake/3.22.1" > local.properties
+      - name: Create local.properties
+        run: |
+          echo "sdk.dir=$ANDROID_HOME" > local.properties
+          echo "cmake.dir=$ANDROID_HOME/cmake/3.22.1" >> local.properties
+          echo "ndk.dir=$ANDROID_HOME/ndk/25.2.9519653" >> local.properties
 
       - name: Grant Permission
         run: chmod +x ./gradlew
