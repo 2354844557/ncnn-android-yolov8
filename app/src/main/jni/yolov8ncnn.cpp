@@ -145,6 +145,29 @@ static MyNdkCamera* g_camera = 0;
 
 extern "C" {
 
+JNIEXPORT jboolean JNICALL Java_com_tencent_yolov8ncnn_YOLOv8Ncnn_loadModelFromBuffer(
+        JNIEnv* env,
+        jobject thiz,
+        jbyteArray param_,
+        jbyteArray bin_,
+        jint cpugpu)
+{
+    jbyte* param_ptr = env->GetByteArrayElements(param_, 0);
+    jsize param_len = env->GetArrayLength(param_);
+
+    jbyte* bin_ptr = env->GetByteArrayElements(bin_, 0);
+    jsize bin_len = env->GetArrayLength(bin_);
+
+    // 将 byte[] 转成 std::vector<unsigned char>
+    std::vector<unsigned char> param(param_ptr, param_ptr + param_len);
+    std::vector<unsigned char> bin(bin_ptr, bin_ptr + bin_len);
+
+    env->ReleaseByteArrayElements(param_, param_ptr, JNI_ABORT);
+    env->ReleaseByteArrayElements(bin_, bin_ptr, JNI_ABORT);
+
+    return yolov8ncnn.load(param, bin, cpugpu) ? JNI_TRUE : JNI_FALSE;
+}
+
 JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved)
 {
     __android_log_print(ANDROID_LOG_DEBUG, "ncnn", "JNI_OnLoad");
