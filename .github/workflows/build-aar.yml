@@ -33,4 +33,3 @@ jobs:
         with:
           name: yolov8ncnn-aar
           path: app/build/outputs/aar/*.aar
-
