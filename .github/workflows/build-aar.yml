@@ -49,7 +49,7 @@ jobs:
           fi
 
       - name: Upload AAR
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3.1.2
         continue-on-error: true # 允许该步骤失败
         with:
           name: yolov8ncnn-aar
