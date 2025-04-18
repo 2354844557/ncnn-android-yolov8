@@ -20,8 +20,11 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v2
 
-      - name: Install CMake
-        run: sdkmanager "cmake;3.10.2.4988404"
+      - name: Install newer CMake
+        run: sdkmanager "cmake;3.22.1"
+
+      - name: Write local.properties
+        run: echo "cmake.dir=$ANDROID_HOME/cmake/3.22.1" > local.properties
 
       - name: Grant Permission
         run: chmod +x ./gradlew
