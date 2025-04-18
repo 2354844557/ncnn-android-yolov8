@@ -29,7 +29,7 @@ jobs:
           ./gradlew assembleRelease
 
       - name: Upload AAR
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@a9dd7e5e6cbb1fbf52d4ad65f5688ed1b835c593
         with:
           name: yolov8ncnn-aar
           path: app/build/outputs/aar/*.aar
