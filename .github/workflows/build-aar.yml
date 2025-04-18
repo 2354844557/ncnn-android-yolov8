@@ -23,7 +23,7 @@ jobs:
       - name: Install SDK Components
         run: |
           sdkmanager "cmake;3.22.1"
-          sdkmanager "ndk;25.2.9519653"
+          sdkmanager "ndk;27.0.12077973"
           sdkmanager "platforms;android-33"
           sdkmanager "build-tools;33.0.2"
 
@@ -31,7 +31,8 @@ jobs:
         run: |
           echo "sdk.dir=$ANDROID_HOME" > local.properties
           echo "cmake.dir=$ANDROID_HOME/cmake/3.22.1" >> local.properties
-          echo "ndk.dir=$ANDROID_HOME/ndk/25.2.9519653" >> local.properties
+          echo "ndk.dir=$ANDROID_HOME/ndk/27.0.12077973" >> local.properties
+
 
       - name: Grant Permission
         run: chmod +x ./gradlew
