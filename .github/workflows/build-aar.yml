@@ -33,7 +33,6 @@ jobs:
           echo "cmake.dir=$ANDROID_HOME/cmake/3.22.1" >> local.properties
           echo "ndk.dir=$ANDROID_HOME/ndk/27.0.12077973" >> local.properties
 
-
       - name: Grant Permission
         run: chmod +x ./gradlew
 
