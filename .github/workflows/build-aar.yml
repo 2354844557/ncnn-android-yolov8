@@ -11,9 +11,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Check network connectivity
-        run: ping -c 3 github.com
-
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
@@ -31,33 +28,8 @@ jobs:
           ./gradlew clean
           ./gradlew assembleRelease
 
-      - name: Check build status
-        run: |
-          if [ $? -eq 0 ]; then
-            echo "Build succeeded."
-          else
-            echo "Build failed."
-          fi
-
-      - name: Check AAR files
-        run: |
-          if [ -d "app/build/outputs/aar" ]; then
-            echo "AAR directory exists."
-            ls app/build/outputs/aar
-          else
-            echo "AAR directory does not exist."
-          fi
-
       - name: Upload AAR
-        uses: actions/upload-artifact@v4.3.1
-        continue-on-error: true # 允许该步骤失败
-        with:
-          name: yolov8ncnn-aar
-          path: app/build/outputs/aar/*.aar
-      
-      - name: Retry Upload AAR if failed
-        if: ${{ steps.upload-aar.outcome == 'failure' }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: yolov8ncnn-aar
           path: app/build/outputs/aar/*.aar
